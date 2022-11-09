@@ -17,7 +17,7 @@ async function run() {
         const serviceCollection = client.db('mernUser').collection('services')
         const reviewCollection = client.db('mernUser').collection('reviews')
        
-
+// Services
         app.get('/services', async(req, res) =>{
             const query = {}
             const cursor = serviceCollection.find(query)
@@ -61,12 +61,11 @@ async function run() {
           const id = req.params.id;
           const filter = {_id : ObjectId(id)}
           const review = req.body;
+          console.log(review)
           const option = {upsert : true}
           const updateReview = {
             $set: {
-              name : review.name,
-              email : review.email,
-              address : review.address
+              reviewData: review.reviewData
             }
           }
           const result = await reviewCollection.updateOne(filter, updateReview, option)
