@@ -31,10 +31,10 @@ async function run() {
             
             res.send(services)
         })
-        app.get('/', async(req, res) =>{
+        app.get('/courses', async(req, res) =>{
             const query = {}
-            const cursor = serviceCollection.find(query)
-            const services = await cursor.toArray();            
+            const cursor = serviceCollection.find(query).sort({_id:-1});
+            const services = await cursor.limit(3).toArray();            
             res.send(services)
         })
         app.get('/services/:id', async(req, res) =>{
